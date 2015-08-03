@@ -79,13 +79,13 @@ Frontend stuff is at `./frontend`
 4. Marketing
 	
 ## Knowledge base
-- Knowledge base (0 - none, 1 - poor, 2 - medium, 3 - good)
-- Want to know (a - nope, b - medium, c - excited)
+- Knowledge base (1 - basic, 2 - medium, 3 - good)
+- Want to know (a - not now, b - nice to learn, c - wants to learn)
 
 |Name        | Github     | JavaScript | Python | R | SQL | NoSql | Angular | Node | Docker | 
 |------------|------------|------------|--------|---|-----|-------|---------|------|--------|
-|Elad Katz   | eladrk     | 3          | a      | b | 3   | 3     | 3       | 3    | 2 c    |
-|Michael B   | mberaz     | 3          |        |   |     |       |         |      |        |
+|Elad Katz   | eladrk     | 3c         | b      | b | 3b  | 2c    | 3c      | 3c   | 1c     |
+|Michael B   | mberaz     |            |        |   |     |       |         |      |        |
 |[your name] |            |            |        |   |     |       |         |      |        |
 
 ## Links
