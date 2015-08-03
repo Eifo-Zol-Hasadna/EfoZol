@@ -50,7 +50,7 @@ Frontend stuff is at `./frontend`
     2. Nirit
     3. Michael B
   2. Android
-   1. Nitzan
+    1. Nitzan
   3. iOS
 2. Web Server 
   1. API (NodeJs) 
@@ -111,9 +111,9 @@ Frontend stuff is at `./frontend`
 
                                 /-- Data Magic (Machine Learning etc.)
                                /
-XML > Parsers > RawData JSON --                                                  /-- Web Client
+XML - Parsers - RawData JSON --                                                  /-- Web Client
                                \                                                /
-                                \-- Normalizers --> API --> WebServer --> API ------ iOS Client
+                                \-- Normalizers -- API -- WebServer --> API -------- iOS Client
                                                                                 \
                                                                                  \-- Android Client 
 
