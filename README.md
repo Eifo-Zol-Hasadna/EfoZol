@@ -43,7 +43,7 @@ Frontend stuff is at `./frontend`
   2. get branches (by location)
   3. get prices (branches * products, ordered by price)
 		
-## Teams(R&D) 
+## Teams
 1. Client
   1. Web (Javascript, Angular)
     1. Boaz
@@ -71,51 +71,3 @@ Frontend stuff is at `./frontend`
 7. Documentation
   1. Readme.MD 
     1. [Elad K](https://github.com/eladrk)
- 
-## Teams(Business)	
-1. PR
-2. Law
-3. Finance
-4. Marketing
-	
-## Knowledge base
-- Knowledge base (1 - basic, 2 - medium, 3 - good)
-- Want to know (a - not now, b - nice to learn, c - wants to learn)
-
-|Name        | Github     | JavaScript | Python | R | SQL | NoSql | Angular | Node | Docker | 
-|------------|------------|------------|--------|---|-----|-------|---------|------|--------|
-|Elad Katz   | eladrk     | 3c         | b      | b | 3b  | 2c    | 3c      | 3c   | 1c     |
-|Michael B   | mberaz     |            |        |   |     |       |         |      |        |
-|[your name] |            |            |        |   |     |       |         |      |        |
-
-## Links
-1. Trello
-2. [Efo-ZolHasadna Github page](https://github.com/Eifo-Zol-Hasadna)
-3. Fields of knowlege and/or interest.
-4. [Documents](https://github.com/Eifo-Zol-Hasadna/docs)
-  1. Teams
-  2. Presentation
-5. [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EladRK/EfoZol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-6. Stackoverflow links
-
-## Architecture
-1. Scraping Server
-  1. Scrapes the XMLs from all the different servers.
-  2. Nomalize data
-  3. Insert data to WebServer through API.
-2. App Web Server
-  1. Exposes API to insert Raw Data. (in the future it will allow small retailers to insert their data as well)
-  2. Insert Data to the PostgreSql database
-  3. Expose normalized API to explore all data in the server (allowing others to plug into our system, and to continue our work)
-  4. Expose a subset of the full API to the web, Android and iOS clients.
-
-                                / -- Data Magic (Machine Learning etc.)
-                               /
-XML - Parsers - RawData JSON --                                                  / -- Web Client
-                               \                                                /
-                                \ -- Normalizers -- API -- WebServer --> API -------- iOS Client
-                                                                                \
-                                                                                 \ -- Android Client 
-
-## FAQ
-
