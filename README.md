@@ -2,7 +2,7 @@
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/EladRK/EfoZol?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-# opma - Open Market - Making Retailer Prices Open
+# EfoZol - Open Market - Making Retailer Prices Open
 Open Grocery will make retailers produce prices accessible and available to the public. 
 The project’s first goal is to create a tool that allows each user to compare the cost of their personal shopping bag with all big retailers, including the ability to filter based on geo-location. This way, we can all easily know where to do our shopping.
 
