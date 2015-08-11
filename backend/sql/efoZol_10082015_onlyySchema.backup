@@ -1,0 +1,263 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.4
+-- Dumped by pg_dump version 9.4.4
+-- Started on 2015-08-10 20:22:03
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 178 (class 3079 OID 11855)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2031 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+--
+-- TOC entry 532 (class 1247 OID 16573)
+-- Name: branch_price_list; Type: TYPE; Schema: public; Owner: postgres
+--
+
+CREATE TYPE branch_price_list AS (
+	branch integer,
+	price money
+);
+
+
+ALTER TYPE branch_price_list OWNER TO postgres;
+
+--
+-- TOC entry 191 (class 1255 OID 16574)
+-- Name: pricesbranches(integer[], integer[]); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION pricesbranches(prodlist integer[], branchlist integer[]) RETURNS TABLE(branch integer, price money)
+    LANGUAGE plpgsql
+    AS $$
+DECLARE 
+	curbranch integer;
+	
+
+begin
+create temp table result of branch_price_list;
+foreach curbranch in array branchlist
+loop
+insert into result (branch, price) values (curbranch, (SELECT sumprprices(prodlist, curbranch)));
+end loop;
+RETURN QUERY select * from result;
+drop table result;
+end;
+$$;
+
+
+ALTER FUNCTION public.pricesbranches(prodlist integer[], branchlist integer[]) OWNER TO postgres;
+
+--
+-- TOC entry 192 (class 1255 OID 16575)
+-- Name: sumprprices(integer[], integer); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION sumprprices(prlist integer[], branch integer) RETURNS money
+    LANGUAGE plpgsql
+    AS $$
+
+declare tempsum money;
+	pr integer[];
+BEGIN
+tempsum := 0;
+--prList = [501,502];
+foreach pr slice 1 in array prlist
+loop
+tempsum := tempsum + ((select "Price" from "ProductPrices" where "ProductId" = pr[1] and "BranchId" = branch)*pr[2]);
+end loop;
+
+return tempsum;
+END
+$$;
+
+
+ALTER FUNCTION public.sumprprices(prlist integer[], branch integer) OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 173 (class 1259 OID 16576)
+-- Name: Branches; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Branches" (
+    "Id" integer NOT NULL,
+    "Name" character varying(100),
+    "StoreId" integer,
+    "Position" point
+);
+
+
+ALTER TABLE "Branches" OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 16579)
+-- Name: ProductPrices; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "ProductPrices" (
+    "ProductId" integer NOT NULL,
+    "BranchId" integer NOT NULL,
+    "Price" money
+);
+
+
+ALTER TABLE "ProductPrices" OWNER TO postgres;
+
+--
+-- TOC entry 175 (class 1259 OID 16582)
+-- Name: Products; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Products" (
+    "Id" integer NOT NULL,
+    "Name" character varying(100)
+);
+
+
+ALTER TABLE "Products" OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 16585)
+-- Name: Stores; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Stores" (
+    "Id" integer NOT NULL,
+    "Name" character varying(100)
+);
+
+
+ALTER TABLE "Stores" OWNER TO postgres;
+
+--
+-- TOC entry 177 (class 1259 OID 16623)
+-- Name: Users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "Users" (
+    "Id" integer NOT NULL,
+    "UserName" character varying(200),
+    "Password" character varying(50),
+    "IsAdmin" boolean
+);
+
+
+ALTER TABLE "Users" OWNER TO postgres;
+
+--
+-- TOC entry 1903 (class 2606 OID 16589)
+-- Name: Branches_PK; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "Branches"
+    ADD CONSTRAINT "Branches_PK" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1905 (class 2606 OID 16591)
+-- Name: ProductPrices_PK; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "ProductPrices"
+    ADD CONSTRAINT "ProductPrices_PK" PRIMARY KEY ("ProductId", "BranchId");
+
+
+--
+-- TOC entry 1907 (class 2606 OID 16593)
+-- Name: Products_PK; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "Products"
+    ADD CONSTRAINT "Products_PK" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1909 (class 2606 OID 16595)
+-- Name: Stores_PK; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "Stores"
+    ADD CONSTRAINT "Stores_PK" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1911 (class 2606 OID 16627)
+-- Name: Users_PK; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "Users"
+    ADD CONSTRAINT "Users_PK" PRIMARY KEY ("Id");
+
+
+--
+-- TOC entry 1912 (class 2606 OID 16596)
+-- Name: Branches_StoreId_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "Branches"
+    ADD CONSTRAINT "Branches_StoreId_FK" FOREIGN KEY ("StoreId") REFERENCES "Stores"("Id");
+
+
+--
+-- TOC entry 1913 (class 2606 OID 16601)
+-- Name: ProductPrices_BranchId_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "ProductPrices"
+    ADD CONSTRAINT "ProductPrices_BranchId_FK" FOREIGN KEY ("BranchId") REFERENCES "Branches"("Id");
+
+
+--
+-- TOC entry 1914 (class 2606 OID 16606)
+-- Name: ProductPrices_ProductId_FK; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "ProductPrices"
+    ADD CONSTRAINT "ProductPrices_ProductId_FK" FOREIGN KEY ("ProductId") REFERENCES "Products"("Id");
+
+
+--
+-- TOC entry 2030 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2015-08-10 20:22:04
+
+--
+-- PostgreSQL database dump complete
+--
+
