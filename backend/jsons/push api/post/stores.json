@@ -1,0 +1,13 @@
+{
+	"ChainId":1,
+	"Stores":[
+		{
+			"Id":1,
+			"Name":"test"
+		},
+		{
+			"Id":2,
+			"Name":"test2"
+		}
+	]
+}

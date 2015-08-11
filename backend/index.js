@@ -1,3 +1,4 @@
+/// <reference path="../typings/node/node.d.ts"/>
 /**
 *   __init__
 *   Server router for Node.JS handler.
@@ -14,10 +15,16 @@ var bodyParser   = require('body-parser');
 var app          = express();
 var http         = require('http');
 var router       = express.Router();
-var routes       = require('./routes.js').routes;
+var routes       =require('./routes.js').routes;
+//var mongoose    = require('mongoose');
+var jwt          =require('jsonwebtoken');
+var common = require('./common.js');
+var settings = require('./settings.js');
+
+GLOBAL.Settings=settings;
+common();
 
 // view engine setup
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
@@ -76,3 +83,4 @@ app.use(function(err, req, res, next) {
 app.set('port', 5000);
 var server = http.createServer(app);
 server.listen(5000);
+

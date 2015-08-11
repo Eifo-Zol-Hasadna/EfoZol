@@ -1,7 +1,7 @@
 module.exports.do = function(req, res, next) {
 
   var pg = require("pg")
-  var conString = "pg://postgres:1234@localhost:5432/efozol2";
+  var conString = GLOBAL.Settings.connectionString;
   var client = new pg.Client(conString);
 
   client.connect();
