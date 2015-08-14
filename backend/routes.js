@@ -3,10 +3,11 @@ var router = express.Router();
 var jwt = require('jsonwebtoken');
 
 router.post("/api/external/login", require("./api/external/auth/postLogin.js").do);
+router.post("/api/external/register", require("./api/external/auth/register.js").do);
 // all routes below need to be authenticated 
 router.use(function (req, res, next) {
   // check header or url parameters or post parameters for token
-  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  var token = req.body.token || req.query.token || req.headers['access-token'];
   // decode token
   if (token) {
     // verifies secret and checks exp

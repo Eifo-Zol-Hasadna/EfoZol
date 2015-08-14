@@ -1,7 +1,8 @@
 var settings={
 	connectionString : "pg://postgres@localhost:5432/efoZol",
 	secret:'oltu264785575MMadd',
-	tokenExpiresInMinutes:86829
+	tokenExpiresInMinutes: 86829,
+	adminHeader:"zolAdmin112200"
 };
 
 module.exports = settings;

@@ -21,6 +21,18 @@ npm install`
 node index.js
 
 ``` 
+ login to API (/api/external/login) or  register if needed (/api/external/register)
+ both end point get the following json
+{
+	"UserName":"xxxxxx",
+	"Password":"yyyyy"	
+}
+(to register you will need to add the header "access-token" and the value "zolAdmin112200")
+
+both endpoint will return a json object that has a jwt token.
+add this token to all the following reusts using the "access-token" header
+ 
+ 
  
 The code is now running the server at `http://localhost:5000`
 Frontend stuff is at `./frontend`
@@ -33,11 +45,15 @@ Frontend stuff is at `./frontend`
 
 
 ## Main API
+
 1. Pull API
   1. add store (auth)
   2. add branch
   3. add product
   4. add price (product/branch/time)
+  5. update store
+  6. update product
+  7. update branch
 2. Get API
   1. get products (by name)
   2. get branches (by location)

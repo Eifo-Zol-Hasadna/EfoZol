@@ -9,7 +9,7 @@ module.exports.do = function (req, res, next) {
   var password = req.body.Password;
 
   //var user = getUserByName(userName, client);
-  var getUserByUserName = "select * from \"Users\" where \"UserName\"='{0}';".format(userName);
+  var getUserByUserName = "select * from \"Users\" where \"UserName\"='{0}'; ".format(userName);
 	 var query = client.query(getUserByUserName, function (err, result) {
 
     if (result.rowCount === 0 || err) {
