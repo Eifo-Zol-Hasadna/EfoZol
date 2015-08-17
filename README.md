@@ -10,6 +10,11 @@ As a second goal, and after collecting the data over time, we wish to publish so
 
 ## Web Server instalation 
 
+```
+Ubuntu $ sudo apt-get install postgresql -y  
+Fedora $ sudo dnf install postgresql -y
+```
+
  - Install PostgreSql
  - Restore DB (found in backend/sql)
  - Run 
