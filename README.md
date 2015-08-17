@@ -11,8 +11,9 @@ As a second goal, and after collecting the data over time, we wish to publish so
 ## Web Server instalation 
 
 ```
-Ubuntu $ sudo apt-get install postgresql -y  
-Fedora $ sudo dnf install postgresql -y
+sudo dnf install postgresql -y
+sudo dnf install postgresql-server -y
+
 ```
 
  - Install PostgreSql
