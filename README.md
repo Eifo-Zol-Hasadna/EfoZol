@@ -21,8 +21,8 @@ Fedora $ sudo dnf install postgresql -y
 ```
 cd frontend 
 bower install
-cd backend`
-npm install`
+cd backend
+npm install
 node index.js
 
 ``` 
