@@ -16,8 +16,8 @@ As a second goal, and after collecting the data over time, we wish to publish so
 ```
 cd frontend 
 bower install
-cd backend`
-npm install`
+cd backend
+npm install
 node index.js
 
 ``` 
