@@ -1,22 +1,11 @@
 module.exports.do = function(req, res, next) {
 
-  var pg = require("pg")
- var conString = GLOBAL.Settings.connectionString;
-  var client = new pg.Client(conString);
+   var Product = GLOBAL.Objects.Product;
 
-  client.connect();
-  var query = client.query("SELECT * FROM \"Products\" WHERE \"Name\" LIKE $1 ORDER BY \"Name\"", ['%' +req.params.name + '%']);
-
-  query.on("row", function (row, result) {
-    result.addRow(row);
-  });
-  query.on("end", function (result) {
-    
-    var items = result.rows.map(function(item){
-      return item.Name;
-    });
-    
-    res.json(items);
-  });
-  
+  Product.fetchAll().then(function (collection) {
+    res.json(collection);
+  }).catch(function (error) {
+    console.log(error);
+    res.send('An error occured');
+     });
 };

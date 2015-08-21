@@ -1,31 +1,28 @@
 ﻿
 module.exports.do = function (req, res, next) {
     
-    var pg = require("pg");
-    
-    var branches = req.body.Branches;
-    
-    var queryString = "";
-    for (var i = 0; i < branches.length; i++) {
-        
-        queryString += "INSERT INTO \"Branches\"(\"Id\", \"Name\", \"StoreId\", \"Position\")" +
-        "VALUES ({0}, '{1}',{2}, '{3}');".format(branches[i].Id , branches[i].Name , branches[i].StoreId , branches[i].Position);
-    }
-    
-    console.log("qs=" + queryString);
-    
-   var conString = GLOBAL.Settings.connectionString;
-    var client = new pg.Client(conString);
-    
-    client.connect();
-    
-    var query = client.query(queryString);
-    
-    query.on("end", function (result) {
-        
-        res.json({ "Status": "OK" });
-    });
-  
+   var Branche = GLOBAL.Objects.Branche;
+	var branches = req.body.Branches;
+
+	for (var i = 0; i < branches.length; i++) {
+		Branche.forge({
+			id: branches[i].Id,
+			name: branches[i].Name,
+			storeId: branches[i].StoreId,				 										
+			position: branches[i].Position
+		}).save(null, { method: 'insert' }).then(function () {
+			 console.log('new row');
+		}).catch(function (error)
+		{
+			console.log(error);
+			res.json({"Status":"ERROR", "RowId":branches[i].Id});
+		});		
+		console.log('for');
+	}
+	
+	 res.json({ "Status": "OK" });
+   
+
 };
 
 

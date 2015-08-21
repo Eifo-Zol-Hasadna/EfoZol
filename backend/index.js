@@ -17,12 +17,20 @@ var http         = require('http');
 var router       = express.Router();
 var routes       =require('./routes.js').routes;
 //var mongoose    = require('mongoose');
-var jwt          =require('jsonwebtoken');
+//var sequelize = require('sequelize');
+var jwt = require('jsonwebtoken');
+var knex= require('knex');
 var common = require('./common.js');
 var settings = require('./settings.js');
 
 GLOBAL.Settings=settings;
 common();
+
+var bookshelf = require('./bookshelf_init.js');
+GLOBAL.Bookshelf = bookshelf;
+
+var objects = require('./objects.js');
+GLOBAL.Objects = objects;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

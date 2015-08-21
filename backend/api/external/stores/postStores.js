@@ -1,28 +1,18 @@
 /* global GLOBAL */
 module.exports.do = function (req, res, next) {
+	var Store = GLOBAL.Objects.Store;
+	var storesList = req.body.Stores;
 
-	var pg = require("pg");
-
-	var stores = req.body.Stores;
-
-	var queryString = "";
-	for (var i = 0; i < stores.length; i++) {
-		
-		queryString += "INSERT INTO \"Stores\"(\"Id\", \"Name\") VALUES ( {0}, '{1}');".format(stores[i].Id , stores[i].Name);
+	for (var i = 0; i < storesList.length; i++) {
+		 Store.forge({ id: storesList[i].Id, name: storesList[i].Name }).save(null, {method: 'insert'}).then(function () {
+			 console.log('new row');
+		}).catch(function (error)
+		{
+			console.log(error);
+			res.json({"Status":"ERROR", "RowId":storesList[i].Id});
+		});		
+		console.log('for');
 	}
 	
-	console.log("qs=" + queryString);
-	
-	var conString = GLOBAL.Settings.connectionString;// ;
-	var client = new pg.Client(conString);
-	
-	client.connect();
-
-	var query = client.query(queryString);
-	
-	query.on("end", function (result) {
-		
-		res.json({"Status":"OK"});
-	});
-  
+	 res.json({ "Status": "OK" });
 };

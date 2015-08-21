@@ -1,9 +1,18 @@
 var settings={
-	connectionString : "pg://postgres@localhost:5432/efoZol",
+      connectionString: "pg://postgres@localhost:5432/efoZol",    
+	connectionObject:{
+      host: "localhost",
+      port: "5432",
+      user: "postgres",
+      password: "",
+      database: "efoZol"
+    },
 	secret:'oltu264785575MMadd',
 	tokenExpiresInMinutes: 86829,
 	adminHeader:"zolAdmin112200"
 };
+
+
 
 module.exports = settings;
 
