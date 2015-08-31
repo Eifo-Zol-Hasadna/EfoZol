@@ -1,8 +1,20 @@
 {
-	"Price":
-		{
+	"Prices":
+		[
+          {
 			"BranchId":8001,
-			"ProductId":501,
+			"ProductId":503,
+			"Price":13
+		},
+           {
+			"BranchId":8002,
+			"ProductId":503,
+			"Price":16
+		},
+           {
+			"BranchId":8003,
+			"ProductId":503,
 			"Price":15
-		}			
+		}
+        ]			
 }

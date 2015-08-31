@@ -1,8 +1,5 @@
-var knex = require('knex')({
-  client: 'pg',
-  connection: GLOBAL.Settings.connectionObject
-});
 
-var bookshelf = require('bookshelf')(knex);
+
+var bookshelf = require('bookshelf')(GLOBAL.Knex);
 
 module.exports = bookshelf;

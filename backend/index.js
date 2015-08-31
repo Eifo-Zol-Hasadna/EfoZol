@@ -26,6 +26,9 @@ var settings = require('./settings.js');
 GLOBAL.Settings=settings;
 common();
 
+var knex = require('./knex.js');
+GLOBAL.Knex = knex;
+
 var bookshelf = require('./bookshelf_init.js');
 GLOBAL.Bookshelf = bookshelf;
 
