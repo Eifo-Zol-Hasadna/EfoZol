@@ -2,13 +2,15 @@ module.exports.do = function (req, res, next) {
 
 	//var Branche = GLOBAL.Objects.Branche;
 	//var ProductPrice = GLOBAL.Objects.ProductPrice;
-	var items = req.body.products;
+	var productsList = req.body.products;
 
-	GLOBAL.Knex.from('ProductPrices').whereIn('productId', items).then(function (collection) {
-		var grouped = collection.groupBy(function () { return this.branchId; });
+	GLOBAL.Knex.from('ProductPrices').whereIn('productId', productsList).then(function (collection) {
+		var groupedByBranche = collection.groupBy(function () { return this.branchId; });
+        
+        var haveingAllTheProducts=groupedByBranche.where(function(x){ return x.Items.length==productsList.length})
 
-		var ordered = grouped.orderBy(function () {
-			return this.Items.sum(function () { return this.price });
+		var ordered = haveingAllTheProducts.orderBy(function () {
+			return this.Items.sum(function () { return this.price.replace("$","").toInt() });
 		});
 		
 		res.json(ordered[0]);
