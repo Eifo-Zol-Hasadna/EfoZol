@@ -1,0 +1,112 @@
+{
+    "stores_file": {
+        "XmlDocVersion": "",
+        "ChainId": "",
+        "Stores": {
+            "Store": [ // @array - list of stores
+                {
+                    "SubChainId"   : "1",               // @int - sub chain id - always "1" in all stores
+                    "StoreId"      : "1",               // @int - store id
+                    "BikoretNo"    : "0",               // @int - ??? - always "0" in all stores
+                    "StoreType"    : "1",               // @int - store type - always "1" in all stores
+                    "ChainName"    : "קואופ שופ",           // @string - chain name - name of the chain
+                    "SubChainName" : "קואופ שופ",           // @string - sub chain name - name of the sub chain
+                    "StoreName"    : "מרכז",                // @string - store name - name of the store
+                    "Address"      : "המלך ג'ורג' 20",  // @string - address - street address of the store
+                    "City"         : "ירושלים",             // @string - city - city name in the store is in
+                    "ZipCode"      : "9426202"          // @int - zipcode - zip code of the store
+                }
+            ]
+        },
+        "LastUpdateDate": "YYYY/MM/DD",
+        "LastUpdateTime": "HH:MM:SS"
+    }
+}
+
+// products/prices XML-TO-JSON structre
+{
+    "prices_file": {
+        "XmlDocVersion" : "",
+        "ChainId"       : "",
+        "SubChainId"    : "1", // @int - sub chain id - always "1" in all stores
+        "StoreId"       : "1", // @int - store id
+        "BikoretNo"     : "4", // @int - ???
+        "Items": {
+            "Item": [ // @array - list of products
+                {
+                    "PriceUpdateDate"             : "2015-02-01 10:07:00",  // @timestamp(yyyy-mm-dd hh:mm:ss) - price update timestamp
+                    "ItemCode"                    : "1000801",              // @int - product barcode
+                    "ItemType"                    : "1",                    // @int - product type - there are a few item types, the difference isn't clear
+                    "ItemName"                    : "עוגת קרנץ פרג 500 גר", // @string - product name
+                    "ManufacturerName"            : "",                     // @string - manufacture name
+                    "ManufactureCountry"          : "ישראל",                // @string - manufacture country
+                    "ManufacturerItemDescription" : "עוגת קרנץ פרג 500 גר", // @string - product description
+                    "bIsWeighted"                 : "",                     // @??? - always empty value
+                    "UnitQty"                     : "",                     // @string - not sure
+                    "Quantity"                    : "1000.00",              // @float - quantity
+                    "UnitOfMeasure"               : "קג",                   // @string - measure unit
+                    "QtyInPackage"                : "0",                    // @int - item quantity - always 0
+                    "UnitOfMeasurePrice"          : "5.02",               // @float - measure unit for item
+                    "AllowDiscount"               : "1",                    // @boolean - allow discount
+                    "ItemStatus"                  : "1",                     // @???(maybe boolean) - always 1
+                    "ItemPrice"                   : "5.02"
+                }
+            ]
+        }
+    }
+}
+
+// promotions/discounts XML-TO-JSON structre
+{
+"promotions_file": {
+    "formatOutput"  : "1",
+    "XmlDocVersion" : "",
+    "ChainId"       : "7290633800006",  // @int - chain id
+    "SubChainId"    : "1",              // @int - sub chain id - always "1" in all stores
+    "StoreId"       : "50",             // @int - store id
+    "BikoretNo"     : "2",              // @int - ???
+    "Promotions": {
+        "Promotion": [ // @array - list of promotions
+            {
+                "PromotionId"            : "1100148",                   // @int - promo id
+                "AllowMultipleDiscounts" : "1",                         // @boolean - allow multiple discounts
+                "PromotionDescription"   : "מגבונים לחים בודד 3 ב 10 ש ח",      // @string - promo description
+                "PromotionUpdateDate"    : "2015-04-28 00:00",          // @timestamp(yyyy-mm-dd hh:mm) - promo update timestamp
+                "PromotionStartDate"     : "2015/02/26",                // @date(yyyy/mm/dd) - promo start date
+                "PromotionEndDate"       : "2015/05/30",                // @date(yyyy/mm/dd) - promo end date
+                "MinQty"                 : "3.00",                      // @float - min quantity - min quantity of product for promo
+                "MinConditionAmnt"       : "",                          // @??? - always empty
+                "MaxWeight"              : "",                          // @??? - always empty
+                "RewardType"             : "1",                         // @int - reward type - ???
+                "DiscountRate"           : "",                          // @??? - always empty
+                "DiscountType"           : "",                          // @int - 0 by percent, 1 by amount
+                "MinPurchaseAmnt"        : "",                          // @??? - always empty
+                "DiscountedPrice"        : "10.00",                     // @float - discounted price - product price after the promo's discount
+                "DiscountedPricePerMida" : "10.00",
+                "AdditionalRestrictions" : {
+                    "AdditionalIsCoupon"  : "0",
+                    "AdditionalGiftCount" : "0",
+                    "AdditionalIsTotal"   : "0",
+                    "AdditionalIsActive"  : "0",
+                    "AdditionalMinBasketAmount": "0"
+                },                                                      // @array - list of additional restrictions
+                "MinNoOfItemOfered"      : "",                          // @??? - always empty
+                "AdditionalConditions"   : "",                          // @??? - always empty
+                "Remarks"                : "",                          // @??? - always empty
+                "Clubs"                  : [
+                    {
+                        "ClubId": "0",       // @int - 0 - for all, 1 - for club, 2 - credit card, 3 - other
+                    }
+                ],                          // @??? - always empty
+                "PromotionItems"         : [                            
+                    { // @array - list of items in the promotionid
+                        "ItemId":  "7290102396733",  //@int - product id
+                        "ItemType": "1",             //@int - item type ("internal barcode")
+                        "IsGiftItem": "1",           //@int - is gift item or not (buy 2 get 1 free)
+                    }
+                ],
+                "PromotionGiftItems"     : ""                           // @??? - always empty
+            }
+        ]
+    }
+}
