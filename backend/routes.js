@@ -41,6 +41,7 @@ router.get("/api/external/branches", require("./api/external/branches/getBranche
 router.get("/api/external/products/:name", require("./api/external/products/getProduct.js").do);
 router.get("/api/external/products", require("./api/external/products/getProducts.js").do);
 router.get("/api/external/stores", require("./api/external/stores/getStores.js").do);
+router.get("/api/external/productsInBracnches", require("./api/external/products/getProductsInBracnches.js").do);
 
 //POST
 router.post("/api/external/stores", require("./api/external/stores/postStores.js").do);

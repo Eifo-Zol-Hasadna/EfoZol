@@ -1,18 +1,16 @@
 ﻿
 function init() {
 
-    String.prototype.format = function () {
+    String.prototype.format = function() {
         var args = arguments;
-        return this.replace(/{(\d+)}/g, function (match, number) {
+        return this.replace(/{(\d+)}/g, function(match, number) {
             return typeof args[number] != 'undefined'
                 ? args[number]
                 : match
                 ;
         });
     };
-
-
-    Array.prototype.groupBy = function (fnValueProvider, args) {
+    Array.prototype.groupBy = function(fnValueProvider, args) {
         var len = this.length;
         if (typeof fnValueProvider != "function")
             throw new TypeError();
@@ -49,7 +47,11 @@ function init() {
         return groupedList;
     };
 
-    Array.prototype.sum = function (fnValueProvider, args) {/// <summary>adds all the values of a param in all the array </summary>
+    String.prototype.toInt = function() {
+        return parseInt(this);
+    };
+
+    Array.prototype.sum = function(fnValueProvider, args) {/// <summary>adds all the values of a param in all the array </summary>
         /// <param name="fnPredicate" type="function">search function delegete  ( items().sum(function() { return  this.Price(); }) )</param>
         var len = this.length;
         if (typeof fnValueProvider != "function")
@@ -68,7 +70,7 @@ function init() {
         return sum;
     };
 
-    Array.prototype.orderBy = function (fnPredicate) {/// <summary>orders the array by a specific proprety  </summary>
+    Array.prototype.orderBy = function(fnPredicate) {/// <summary>orders the array by a specific proprety  </summary>
         /// <param name="fnPredicate" type="function">order function delegete (items().orderBy(function () {return this.ID });)</param>
         var len = this.length;
         if (typeof fnPredicate != "function")
@@ -91,6 +93,49 @@ function init() {
         return array;
 
     }
+
+
+    Array.prototype.select = function(fnPredicate) {/// <summary>returns a list of objects that are created in the predicate</summary>
+        var len = this.length;
+        if (typeof fnPredicate != "function")
+            throw new TypeError();
+
+        var vals = [];
+        for (var i = 0; i < len; i++) {
+            if (i in this) {
+                var value = fnPredicate.call((void 0), this[i], i, this);
+                vals.push(value);
+
+            }
+        }
+
+        return vals;
+    };
+
+    Array.prototype.where = function(fnPredicate) {
+        /// <summary>return all element from the array that match the filter</summary>S       
+        /// <param name="fnPredicate" type="function">search function delegete </param>
+        var len = this.length;
+        if (typeof fnPredicate != "function") {
+            throw new TypeError();
+        }
+        var matches = [];
+        for (var i = 0; i < len; i++) {
+            if (i in this) {
+                var match = fnPredicate.call((void 0), this[i], i, this);
+                if (match)
+                    matches.push(this[i]);
+            }
+        }
+
+        return matches;
+    };
+
+
+
+
+
+
 }
 
 
